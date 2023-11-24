@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "title": "Dogs",
+      "image": "https://i.ibb.co/KhxnxDQ/Rectangle-11.png",
+      "description":"Dog is a pet animal.It is a very clever animal and is very useful in catching thieves. It runs very fast, barks loudly and attacks the strangers."
+    },
+    {
+      "id": 2,
+      "title": "Cats",
+      "image": "https://i.ibb.co/MRTmbts/red-white-cat-i-white-studio-1.jpg",
+      "description":"Cats have very sweet features.Apart from being clever and sweet, cats are also skilful hunters,Cats are also helpful to their owners."
+    },
+    {
+      "id": 3,
+      "title": "Rabbits",
+      "image": "https://i.ibb.co/1n9sLtP/pexels-photo-9661213.jpg",
+      "description":"Rabbits are adorable little animals. Everything from their soft fur, cute appearance and funny mannerisms make them lovable pet animals."
+    },
+    {
+      "id": 4,
+      "title": "Birds",
+      "image": "https://i.ibb.co/LnVyy2S/Parakeets-1.jpg",
+      "description":"Birds can be wonderful pets, but they are high maintenance.They are very social and do need daily interaction and time outside of their cage."
+    }
+  ]
+  

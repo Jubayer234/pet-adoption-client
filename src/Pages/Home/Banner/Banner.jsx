@@ -6,7 +6,7 @@ const Banner = () => {
   return (
     <div className="hero pt-36">
   <div className="hero-content flex-col lg:flex-row-reverse gap-16">
-    <img src={bannerImg} className="max-w-2xl rounded-lg shadow-2xl rounded-tr-[100px] rounded-bl-[100px]" />
+    <img src={bannerImg} className=" md:w-1/2 rounded-lg shadow-2xl rounded-tr-[100px] rounded-bl-[100px]" />
     <div>
       <h1 className="text-3xl font-bold font-serif">Adopting Means <br /> <span className='text-[#ef6f18]'>YOU SAVE A LIFE!</span></h1>
       <p className="py-6 text-lg font-medium">When you adopt, not only do you save your loving new companion, but you make space for other animals who desperately need it, creating a domino effect of goodness.</p>
