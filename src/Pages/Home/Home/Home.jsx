@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import Banner from '../Banner/Banner'
 import Category from '../Category/Category'
 import { useLoaderData } from 'react-router-dom'
+import AboutUs from '../AboutUs/AboutUs'
 
 const Home = () => {
     const cards = useLoaderData();
@@ -13,6 +14,7 @@ const Home = () => {
         </Helmet>
         <Banner></Banner>
         <Category cards={cards}></Category>
+        <AboutUs></AboutUs>
         
     </div>
   )
