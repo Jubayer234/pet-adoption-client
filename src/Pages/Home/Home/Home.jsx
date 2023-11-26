@@ -4,6 +4,8 @@ import Banner from '../Banner/Banner'
 import Category from '../Category/Category'
 import { useLoaderData } from 'react-router-dom'
 import AboutUs from '../AboutUs/AboutUs'
+import Footer from '../Footer/Footer'
+import CallToAction from '../CallToAction/CallToAction'
 
 const Home = () => {
     const cards = useLoaderData();
@@ -14,7 +16,9 @@ const Home = () => {
         </Helmet>
         <Banner></Banner>
         <Category cards={cards}></Category>
+        <CallToAction></CallToAction>
         <AboutUs></AboutUs>
+        <Footer></Footer>
         
     </div>
   )
