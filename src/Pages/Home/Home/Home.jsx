@@ -6,6 +6,7 @@ import { useLoaderData } from 'react-router-dom'
 import AboutUs from '../AboutUs/AboutUs'
 import Footer from '../Footer/Footer'
 import CallToAction from '../CallToAction/CallToAction'
+import EmailUs from '../EmailUs/EmailUs'
 
 const Home = () => {
     const cards = useLoaderData();
@@ -18,6 +19,7 @@ const Home = () => {
         <Category cards={cards}></Category>
         <CallToAction></CallToAction>
         <AboutUs></AboutUs>
+        <EmailUs></EmailUs>
         <Footer></Footer>
         
     </div>

@@ -1,6 +1,7 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import logoImg from '../../../assets/Screenshot.png'
+import UserProfile from '../Home/UserProfile/UserProfile';
 
 const Navbar = () => {
 
@@ -11,7 +12,7 @@ const Navbar = () => {
       </p>
       <p className='text-[#1e4b57]'>
           <NavLink className={({ isActive }) =>
-              isActive ? " underline text-[#ef6f18]" : ""} to="/PetListing"> Pet Listing</NavLink>
+              isActive ? " underline text-[#ef6f18]" : ""} to="/petListing"> Pet Listing</NavLink>
       </p>
       <p className='text-[#1e4b57]'>
           <NavLink className={({ isActive }) =>
@@ -20,7 +21,7 @@ const Navbar = () => {
       </p>
       <p className='text-[#1e4b57]'>
           <NavLink className={({ isActive }) =>
-              isActive ? " underline text-[#ef6f18]" : ""} to="/Login">Login</NavLink>
+              isActive ? " underline text-[#ef6f18]" : ""} to="/login">Login</NavLink>
       </p>
       <p className='text-[#1e4b57]'>
           <NavLink className={({ isActive }) =>
@@ -50,9 +51,9 @@ const Navbar = () => {
                       {navLinks}
                   </ul>
               </div>
-              <div >
-              <button className='btn mr-5'>Sign in</button>
-              </div>
+              <div>
+                <UserProfile></UserProfile>
+                </div>
           </div>
       </div>
   )
