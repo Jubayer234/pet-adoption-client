@@ -13,7 +13,7 @@ const CategoryCards = ({card}) => {
     <h2 className="card-title font-bold text-[#1e4b57]">{title}</h2>
     <p className='font-medium'>{description}</p>
     <div className="card-actions">
-    <Link to={`/details/${id}`}><button className="btn bg-[#ef6f18] rounded-full text-white">See More</button></Link>
+    <Link to={`/petListing`}><button className="btn bg-[#ef6f18] rounded-full text-white">See More</button></Link>
     </div>
   </div>
 </div>
