@@ -6,15 +6,34 @@ import background from '../../assets/footer_bg.jpg'
 import { AuthContext } from '../../Provider/AuthProvider'
 import Swal from 'sweetalert2'
 import toast, { Toaster } from 'react-hot-toast'
+import UseAxiosPublic from '../../Components/Hooks/UseAxiosPublic'
 
 const Register = () => {
-
-    const {createUser, updateUserProfile} = useContext(AuthContext);
-    const location = useLocation ();
+    const axiosPublic = UseAxiosPublic();
+    const {signIn}= useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const location = useLocation();
     const navigate = useNavigate();
 
+    const handleGoogleSignIn =() => {
+        signIn()
+        .then(result => {
+            console.log(result.user)
+            const userInfo = {
+                name: result.user?.displayName,
+                email: result.user?.email
+            }
+            axiosPublic.post('/users', userInfo)
+            .then(res => {
+                console.log(res.data);
+                    Swal.fire('successfully registered!')
+                navigate(location?.state ? location.state : '/' )
+            })
+        })
+    }
+
     const handleRegister = event => {
-        
+
         event.preventDefault()
         const form = event.target;
         const displayName = form.displayName.value;
@@ -22,32 +41,44 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        if(password.length < 6){
+        if (password.length < 6) {
             toast.error("Your password is less then 6 character")
             return;
         }
-        else if(!/[A-Z]/.test(password)){
+        else if (!/[A-Z]/.test(password)) {
             toast.error("Your password should have  at Least one Capital letter")
             return;
-        }else if(!/(?=.*[@$!%*?&])/.test(password)){
+        } else if (!/(?=.*[@$!%*?&])/.test(password)) {
             toast.error("Password doesn't have a special character")
             return;
-        }else{
-            createUser(email,password)
-            .then(result => {
-                Swal.fire('successfully registered!')
-                console.log(result.user)
-                navigate(location?.state ? location.state : '/' )
-                updateUserProfile(displayName,photo)
-                .then(() => {
-                    console.log("user profile updated");
+        } else {
+            createUser(email, password)
+                .then(result => {
+                    console.log(result.user)
+                    updateUserProfile(displayName, photo)
+                        .then(() => {
+                            const userInfo = {
+                                name: displayName,
+                                email: email
+                            }
+                            axiosPublic.post('/users', userInfo)
+                                .then(res => {
+                                    if (res.data.insertedId) {
+                                        console.log('user added to the database');
+                                        Swal.fire('successfully registered!')
+                                    }
+
+                                    navigate(location?.state ? location.state : '/')
+                                })
+
+                            console.log("user profile updated");
+                        })
                 })
-            })
-            .catch(error => {
-                console.error(error)
-            })
+                .catch(error => {
+                    console.error(error)
+                })
         }
-        }
+    }
 
     return (
         <div>
@@ -55,8 +86,8 @@ const Register = () => {
                 <title>Pet Adoption | Register</title>
             </Helmet>
             <div style={{
-                        backgroundImage: `url(${background})`,
-                    }} className='pt-40'>
+                backgroundImage: `url(${background})`,
+            }} className='pt-40'>
                 <h2 className='text-center font-serif font-semibold pb-6 text-4xl text-[#ef6f18]'>Create An Account</h2>
                 <div className='flex items-center  pb-10'>
                     <div>
@@ -98,6 +129,7 @@ const Register = () => {
                             <div className="form-control mt-6">
                                 <button className="btn bg-[#ef6f18] text-white font-bold">Register</button>
                             </div>
+                            <button onClick={handleGoogleSignIn} className='btn bg-[#fc77ae] text-white'>sign In with google</button>
                             <p className='text-lg mt-5 text-center'>Already have an account? <Link className='text-blue-600 font-serif font-semibold' to="/login" >Login</Link></p>
                         </form>
                     </div>

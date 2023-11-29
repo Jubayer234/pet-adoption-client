@@ -4,9 +4,11 @@ import Navbar from '../Pages/Home/Navbar/Navbar'
 
 const Main = () => {
   const location = useLocation();
+
+  const noHeader = location.pathname.includes('/dashboard')
   return (
     <div>
-      <Navbar></Navbar>
+      {noHeader || <Navbar></Navbar>}
       <Outlet></Outlet>
     </div>
   )

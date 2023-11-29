@@ -5,17 +5,27 @@ import background from '../../assets/footer_bg.jpg'
 import mew from '../../assets/pngwing 3.png'
 import { AuthContext } from '../../Provider/AuthProvider'
 import Swal from 'sweetalert2'
+import UseAxiosPublic from '../../Components/Hooks/UseAxiosPublic'
 const Login = () => {
     const {signIn}= useContext(AuthContext);
     const {logIn} = useContext(AuthContext);
+    const axiosPublic = UseAxiosPublic();
     const location = useLocation();
     const navigate = useNavigate();
 
     const handleGoogleSignIn =() => {
-        signIn().then(result => {
-            console.log(result.user)
-            Swal.fire("logged in");
-            navigate(location?.state ? location.state : '/' )
+        signIn()
+        .then(result => {
+            const userInfo = {
+                name: result.user?.displayName,
+                email: result.user?.email
+            }
+            axiosPublic.post('/users', userInfo)
+            .then(res => {
+                console.log(res.data);
+                    Swal.fire('successfully registered!')
+                navigate(location?.state ? location.state : '/' )
+            })
         })
     }
 

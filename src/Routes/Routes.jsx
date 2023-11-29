@@ -10,6 +10,7 @@ import DashBoard from '../DashBoard/DashBoard';
 import DonationCampaign from '../Pages/DonationCampeign/DonationCampaign';
 import Details from '../Pages/PetDetails/Details';
 import PrivateRoute from '../Components/PrivateRoute/PrivateRoute';
+import AddPet from '../DashBoard/AddPet/AddPet';
 
 const router = createBrowserRouter([
   {
@@ -41,15 +42,21 @@ const router = createBrowserRouter([
       },
       {
         path: '/details/:id',
-        element: <Details></Details>,
+        element: <PrivateRoute><Details></Details></PrivateRoute>,
         loader: () => fetch('http://localhost:5000/pet')
       },
-      {
-        path: 'dashBoard',
-        element: <PrivateRoute><DashBoard></DashBoard></PrivateRoute>
-      }
     ]
   },
+  {
+    path: 'dashBoard',
+    element: <PrivateRoute><DashBoard></DashBoard></PrivateRoute>,
+    children: [
+      {
+        path: 'addPet',
+        element: <AddPet></AddPet>
+      }
+    ]
+  }
 ]);
 
 export default router

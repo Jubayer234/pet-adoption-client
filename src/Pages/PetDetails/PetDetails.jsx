@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const PetDetails = ({ card }) => {
+  const { user } = useContext(AuthContext);
   const { id, image, category, name, age, location, donated, donation } = card || {};
   return (
     <div>
@@ -22,8 +23,8 @@ const PetDetails = ({ card }) => {
               <div className="modal-box">
                 <div className="modal-action">
                   <form method="dialog">
-                  <input type="text" placeholder="UserName" className="input w-full mb-2 max-w-xs" disabled />
-                  <input type="text" placeholder="User Email" className="input w-full max-w-xs" disabled />
+                  <input type="text" placeholder={user?.displayName} className="input w-full mb-2 max-w-xs" disabled />
+                  <input type="text" placeholder={user?.email} className="input w-full max-w-xs" disabled />
                   <input type="number" placeholder="Your Phone Number" className="input mt-2 input-bordered input-warning w-full max-w-xs" />
                   <input type="text" placeholder="Write Ur Address" className="input mt-2 input-bordered input-warning w-full max-w-xs" />
                   <button className="btn bg-orange-400 my-2 text-white  w-full max-w-xs">Submit</button>

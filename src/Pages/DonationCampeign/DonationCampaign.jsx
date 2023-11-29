@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Donation from './Donation';
 import SectionTitle from '../../Components/SectionTitle/SectionTitle';
+import { Helmet } from 'react-helmet-async';
 
 const DonationCampaign = () => {
     const [card, setCard] = useState([]);
@@ -12,6 +13,9 @@ const DonationCampaign = () => {
       }, [])
   return (
     <div className='pt-32'>
+      <Helmet>
+        <title>Pet Adoption | Donation Campaign</title>
+      </Helmet>
         <SectionTitle 
         subHeading={'Donation '}
         heading={'Donate To Help Them'}
