@@ -1,9 +1,43 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../Provider/AuthProvider';
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const PetDetails = ({ card }) => {
   const { user } = useContext(AuthContext);
   const { id, image, category, name, age, location, donated, donation } = card || {};
+
+  const handleAddReq = event => {
+    event.preventDefault();
+    const form = event.target;
+    const name = user.displayName;
+    const email = user?.email;
+    const number = form.number.value;
+    const address = form.address.value;
+    const request = {
+      name,
+      email,
+      number,
+      address,
+      pet: id
+    }
+    console.log(request);
+    fetch('http://localhost:5000/petRequest' ,{
+      method: 'POST',
+      headers: {
+          'content-type' : 'application/json'
+      },
+      body: JSON.stringify(request)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      toast.success('Request Inserted!')
+
+    })
+
+  }
+
   return (
     <div>
       <div className="card w-96 mx-auto item shadow-lg">
@@ -20,21 +54,44 @@ const PetDetails = ({ card }) => {
           <div className="card-actions">
             <button className="btn bg-[#ef6f18] rounded-full text-white" onClick={() => document.getElementById('my_modal_5').showModal()}>Adopt Me</button>
             <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-              <div className="modal-box">
-                <div className="modal-action">
-                  <form method="dialog">
-                  <input type="text" placeholder={user?.displayName} className="input w-full mb-2 max-w-xs" disabled />
-                  <input type="text" placeholder={user?.email} className="input w-full max-w-xs" disabled />
-                  <input type="number" placeholder="Your Phone Number" className="input mt-2 input-bordered input-warning w-full max-w-xs" />
-                  <input type="text" placeholder="Write Ur Address" className="input mt-2 input-bordered input-warning w-full max-w-xs" />
-                  <button className="btn bg-orange-400 my-2 text-white  w-full max-w-xs">Submit</button>
+              <div className="bg-white p-10 mx-auto md:w-[400px] rounded-lg">
+                <div>
+                  <form onSubmit={handleAddReq} method="dialog">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text">User Name</span>
+                      </label>
+                      <input type="text" placeholder={user?.displayName} name='name' className="input w-full mb-2 " disabled />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text">User Email</span>
+                      </label>
+                      <input type="email" placeholder={user?.email} name='email' className="input w-full mb-2 " disabled />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text">Phone Number</span>
+                      </label>
+                      <input type="number" placeholder="Your phone number" name='number' className="input input-bordered input-warning  w-full mb-2" />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text">Phone Number</span>
+                      </label>
+                      <input type="text" placeholder="Your address" name='address' className="input input-bordered input-warning  w-full mb-2" />
+                    </div>
+                    <button className="btn modal-close
+                 bg-orange-400 my-2 text-white   w-full">Submit</button>
                   </form>
                 </div>
               </div>
             </dialog>
           </div>
         </div>
-      </div></div>
+        <Toaster></Toaster>
+      </div>
+      </div>
   )
 }
 

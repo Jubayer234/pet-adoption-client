@@ -11,6 +11,7 @@ import DonationCampaign from '../Pages/DonationCampeign/DonationCampaign';
 import Details from '../Pages/PetDetails/Details';
 import PrivateRoute from '../Components/PrivateRoute/PrivateRoute';
 import AddPet from '../DashBoard/AddPet/AddPet';
+import AdoptionReq from '../DashBoard/AdoptionReq/AdoptionReq';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: 'addPet',
         element: <AddPet></AddPet>
+      },
+      {
+        path: 'adoptionReq',
+        element: <AdoptionReq></AdoptionReq>
       }
     ]
   }
