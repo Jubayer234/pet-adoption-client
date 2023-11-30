@@ -12,6 +12,7 @@ import Details from '../Pages/PetDetails/Details';
 import PrivateRoute from '../Components/PrivateRoute/PrivateRoute';
 import AddPet from '../DashBoard/AddPet/AddPet';
 import AdoptionReq from '../DashBoard/AdoptionReq/AdoptionReq';
+import AllUsers from '../DashBoard/AllUsers/AllUsers';
 
 const router = createBrowserRouter([
   {
@@ -59,7 +60,13 @@ const router = createBrowserRouter([
       {
         path: 'adoptionReq',
         element: <AdoptionReq></AdoptionReq>
+      },
+      // admin
+      {
+        path: 'allUser',
+        element: <AllUsers></AllUsers>
       }
+
     ]
   }
 ]);
