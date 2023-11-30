@@ -1,8 +1,11 @@
 
 import { Helmet } from 'react-helmet-async';
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import useAdmin from '../Components/Hooks/UseAdmin';
 
 const DashBoard = () => {
+  const [isAdmin] = useAdmin();
+
   const Sidebar = () => (
     <div className=" text-white h-screen dropdown space-y-5 pt-10 p-4">
       {
@@ -13,6 +16,14 @@ const DashBoard = () => {
           isActive ? " underline" : ""}>All Users</NavLink>
       </p>
       <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-500'>
+        <NavLink to="/dashBoard/addPet" className={({ isActive }) =>
+          isActive ? " underline" : ""}>Add a Pet</NavLink>
+      </p>
+      <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-700'>
+        <NavLink to="/dashBoard/adoptionReq" className={({ isActive }) =>
+          isActive ? " underline" : ""}>Adoption Request</NavLink>
+      </p>
+      <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-500'>
         <NavLink to="/dashBoard/allPets" className={({ isActive }) =>
           isActive ? " underline" : ""}>All Pets</NavLink>
       </p>
@@ -21,16 +32,8 @@ const DashBoard = () => {
           isActive ? " underline " : ""}>All Donations</NavLink>
       </p>
       <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-500'>
-        <NavLink to="/dashBoard/addPet" className={({ isActive }) =>
-          isActive ? " underline" : ""}>Add a Pet</NavLink>
-      </p>
-      <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-500'>
         <NavLink to="/dashBoard/myAddedPets" className={({ isActive }) =>
           isActive ? " underline" : ""}>My Added Pets</NavLink>
-      </p>
-      <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-700'>
-        <NavLink to="/dashBoard/adoptionReq" className={({ isActive }) =>
-          isActive ? " underline" : ""}>Adoption Request</NavLink>
       </p>
       <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-700'>
         <NavLink to="/dashBoard/donationCamp" className={({ isActive }) =>
@@ -75,8 +78,6 @@ const DashBoard = () => {
       }
     </div>
   );
-
-  const isAdmin = true;
 
   return (
     <div className=''>
