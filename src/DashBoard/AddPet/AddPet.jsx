@@ -27,18 +27,18 @@ const AddPet = () => {
             category: data.category,
             age: parseFloat(data.age),
             massage: data.massage,
+            description: data.description,
             image: res.data.data.display_url
         }
         // 
         const petRes = await axiosSecure.post('/addedPets', pets);
         console.log(petRes.data)
         if(petRes.data.insertedId){
-            // show success popup
             reset();
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: `${data.name} is added to the menu.`,
+                title: `${data.name} is added to the pets.`,
                 showConfirmButton: false,
                 timer: 1500
               });

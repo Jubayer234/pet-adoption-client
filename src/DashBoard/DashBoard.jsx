@@ -19,6 +19,10 @@ const DashBoard = () => {
         <NavLink to="/dashBoard/addPet" className={({ isActive }) =>
           isActive ? " underline" : ""}>Add a Pet</NavLink>
       </p>
+      <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-500'>
+        <NavLink to="/dashBoard/myAddedPets" className={({ isActive }) =>
+          isActive ? " underline" : ""}>My Added Pets</NavLink>
+      </p>
       <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-700'>
         <NavLink to="/dashBoard/adoptionReq" className={({ isActive }) =>
           isActive ? " underline" : ""}>Adoption Request</NavLink>
@@ -30,10 +34,6 @@ const DashBoard = () => {
       <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-500'>
         <NavLink to="/dashBoard/allDonations" className={({ isActive }) =>
           isActive ? " underline " : ""}>All Donations</NavLink>
-      </p>
-      <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-500'>
-        <NavLink to="/dashBoard/myAddedPets" className={({ isActive }) =>
-          isActive ? " underline" : ""}>My Added Pets</NavLink>
       </p>
       <p className='block py-2 px-4 bg-white text-black rounded-md hover:bg-gray-700'>
         <NavLink to="/dashBoard/donationCamp" className={({ isActive }) =>
