@@ -77,7 +77,7 @@ const PetDetails = ({ card }) => {
                     </div>
                     <div className="form-control">
                       <label className="label">
-                        <span className="label-text">Phone Number</span>
+                        <span className="label-text">Location</span>
                       </label>
                       <input type="text" placeholder="Your address" name='address' className="input input-bordered input-warning  w-full mb-2" />
                     </div>
