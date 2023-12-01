@@ -7,7 +7,7 @@ const DonationCampaign = () => {
     const [card, setCard] = useState([]);
     
     useEffect(() => {
-        fetch('http://localhost:5000/Pet')
+        fetch('https://pet-adoption-server-flax.vercel.app/pet')
           .then(res => res.json())
           .then(data => setCard(data));
       }, [])

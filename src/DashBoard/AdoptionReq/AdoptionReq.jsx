@@ -8,7 +8,7 @@ const AdoptionReq = () => {
     const { user } = useContext(AuthContext);
     const [request, setRequest] = useState([]);
 
-    const url = `http://localhost:5000/petRequest?email=${user?.email}`;
+    const url = `https://pet-adoption-server-flax.vercel.app/petRequest?email=${user?.email}`;
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
@@ -18,7 +18,7 @@ const AdoptionReq = () => {
     const handleDelete = id => {
         const proceed = confirm('Are you sure you want to')
         if (proceed) {
-            fetch(`http://localhost:5000/petRequest/${id}`, {
+            fetch(`https://pet-adoption-server-flax.vercel.app/petRequest/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -41,7 +41,7 @@ const AdoptionReq = () => {
     }
 
     const handleAccept = id => {
-        fetch(`http://localhost:5000/petRequest/${id}`, {
+        fetch(`https://pet-adoption-server-flax.vercel.app/petRequest/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

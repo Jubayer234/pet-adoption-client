@@ -9,4 +9,4 @@ const SectionTitle = ({heading, subHeading}) => {
     )
   }
 
-export default SectionTitle
+export default SectionTitle;

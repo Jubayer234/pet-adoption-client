@@ -5,6 +5,9 @@ const AnotherSection = () => {
   return (
     <div className='mt-20' style={{
         backgroundImage: `url(${banner})`,
+        backgroundRepeat : 'no-repeat',
+        backgroundSize: 'cover'
+        
     }}>
     <div className=' text white p-16 mb-32 text-center'>
             <h3 className='text-4xl text-white font bold font-serif pb-5'>Bistro Boss</h3>

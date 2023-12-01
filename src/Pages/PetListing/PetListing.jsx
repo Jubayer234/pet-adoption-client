@@ -5,7 +5,7 @@ import SectionTitle from '../../Components/SectionTitle/SectionTitle';
 
 const PetListing = () => {
   useEffect(() => {
-    fetch('http://localhost:5000/pet')
+    fetch('https://pet-adoption-server-flax.vercel.app/pet')
     .then(res => res.json())
     .then(data => {
       setData(data);

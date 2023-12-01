@@ -45,7 +45,7 @@ const router = createBrowserRouter([
       {
         path: '/details/:id',
         element: <PrivateRoute><Details></Details></PrivateRoute>,
-        loader: () => fetch('http://localhost:5000/pet')
+        loader: () => fetch('https://pet-adoption-server-flax.vercel.app/pet')
       },
     ]
   },

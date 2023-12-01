@@ -22,7 +22,7 @@ const PetDetails = ({ card }) => {
       pet: id
     }
     console.log(request);
-    fetch('http://localhost:5000/petRequest' ,{
+    fetch('https://pet-adoption-server-flax.vercel.app/petRequest' ,{
       method: 'POST',
       headers: {
           'content-type' : 'application/json'

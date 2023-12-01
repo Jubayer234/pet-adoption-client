@@ -1,130 +1,142 @@
 import React from 'react'
 import Swal from 'sweetalert2';
 import background from '../../assets/footer_bg.jpg'
-import Select from 'react-dropdown-select';
+import { useForm } from 'react-hook-form';
+import UseAxiosPublic from '../../Components/Hooks/UseAxiosPublic';
+import UseAxiosSecure from '../../Components/Hooks/UseAxiosSecure';
+
+
+const image_hosting = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting}`;
 
 const AddPet = () => {
-
-  const options = [
-    { 
-      value: 1,
-      label: "Dog"
-    },
-    {
-      value:  2,
-      label: "Cat"
-    },
-    {
-      value:  3,
-      label: "Rabbit"
-    },
-    {
-      value:  4,
-      label: "Birds"
+  const { register, handleSubmit, reset } = useForm();
+  const axiosPublic = UseAxiosPublic();
+  const axiosSecure = UseAxiosSecure();
+  const onSubmit = async (data) => {
+      console.log(data)
+      const imageFile = { image: data.image[0] }
+      const res = await axiosPublic.post(image_hosting_api,imageFile,  {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    });
+    if (res.data.success) {
+        const pets = {
+            name: data.name,
+            category: data.category,
+            age: parseFloat(data.age),
+            massage: data.massage,
+            image: res.data.data.display_url
+        }
+        // 
+        const petRes = await axiosSecure.post('/addedPets', pets);
+        console.log(petRes.data)
+        if(petRes.data.insertedId){
+            // show success popup
+            reset();
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${data.name} is added to the menu.`,
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }
     }
-    
-  ];
-
-const handleAddProducts = event => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value; 
-    const brand = form.brand.value;  
-    const category = form.category.value; 
-    const age = form.age.value; 
-    const image = form.image.value; 
-    const location = form.location.value; 
-    const description = form.description.value; 
-
-    const newProduct = {name,brand,category,age,image,location,description}
-    console.log(newProduct);
-
-    // send data
-    fetch('http://localhost:5000/pet',{
-      method: 'POST',
-      headers: {
-        'content-type' : 'application/json'
-      },
-      body: JSON.stringify(newProduct)
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      if(data.insertedId){
-        Swal.fire('Product has been added')
-      }
-    })
-
-
-}
+    console.log(res.data);
+};
 
   return (
-    <div  className=' p-4 '>
-        <h2 className='font-serif text-[#a38585] text-center text-5xl border-b w-3/5 mx-auto pb-5'>Add New Product</h2>
-        <div className="hero-content rounded-lg flex-col mb-20 container lg:w-3/6 mx-auto">
-        <div className="text-center space-y-4">
-        </div>
-        <div style={{
-            backgroundImage: `url(${background})`,
-        }} 
-         className="card flex-shrink-0 w-full">
-          <form onSubmit={handleAddProducts} className="card-body grid grid-cols-1 md:grid-cols-2">
-            <div className="form-control ">
-              <label className="label">
-                <span className="label-text">Pet Name</span>
-              </label>
-              <input type="text" placeholder="Name of the pet" name="name" className="input input-bordered" required />
-            </div>
-            <div className="form-control ">
-              <label className="label">
-                <span className="label-text">Brand Name</span>
-              </label>
-              <input type="text" name='brand' placeholder="Brand name" className="input input-bordered" required />
-            </div>
-            <div className="form-control ">
-              <label className="label">
-                <span className="label-text">Pet Category</span>
-              </label>
-              <Select className="input input-bordered" options={options} />
+      <div  className='my-20'>
+          <h2 className='font-serif text-[#a38585] text-center text-5xl border-b-2 border-black w-3/6 mx-auto pb-5'>Add New Product</h2> 
+          <div  style={{ backgroundImage: `url(${background})`, }} className=" rounded-lg w-3/4 p-20 mx-auto"> 
+          <div className="">
+          <div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="form-control w-full my-4">
+                      <label className="label">
+                          <span className="label-text">Pet Name*</span>
+                      </label>
+                      <input
+                          type="text"
+                          placeholder="Name of the pet"
+                          {...register('name', { required: true })}
+                          required
+                          className="input input-bordered w-full" />
+                  </div>
+                  <div className="flex gap-6">
+                      <div className="form-control w-full my-4">
+                          <label className="label">
+                              <span className="label-text">Category*</span>
+                          </label>
+                          <select defaultValue="default" {...register('category', { required: true })}
+                              className="select select-bordered w-full">
+                              <option disabled value="default">Select a category</option>
+                              <option value="Dog">Dog</option>
+                              <option value="Cat">Cat</option>
+                              <option value="Rabbit">Rabbit</option>
+                              <option value="Bird">Bird</option>
+                          </select>
+                      </div>
+                      <div className="form-control w-full my-4">
+                          <label className="label">
+                              <span className="label-text">Age*</span>
+                          </label>
+                          <input
+                              type="number"
+                              placeholder="Pets's age"
+                              {...register('age', { required: true })}
+                              className="input input-bordered w-full" />
+                      </div>
 
-            </div>
-            
-            <div className="form-control ">
-              <label className="label">
-                <span className="label-text">Age</span>
-              </label>
-              <input type="text" name='age' placeholder="Pet age" className="input input-bordered" />
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Pet Image</span>
-              </label>
-              <input type="text" name='image' placeholder="Image" className="input input-bordered" required />
-            </div>
-            <div className="form-control ">
-              <label className="label">
-                <span className="label-text">Location</span>
-              </label>
-              <input type="text" name='location' placeholder="The location" className="input input-bordered" required />
-            </div>
-            <div className="form-control col-span-full">
-              <label className="label">
-                <span className="label-text">Description</span>
-              </label>
-              <textarea placeholder="Write short description" name="description" className="input input-bordered w-full min-h-16" required />
-              <label className="label">
-                <span className="label-text">Long Description</span>
-              </label>
-              <textarea className="textarea textarea-bordered" placeholder="Leave a Long Message/description"></textarea>
-            </div>
-            <div className="form-control mt-6 col-span-full">
-              <button className="btn bg-orange-500 text-white text-lg" type='submit' >Add Pet</button>
-            </div>
-          </form>
-        </div>
+                  </div>
+                  <div className="flex gap-6">
+                  <div className="form-control w-full my-4">
+                      <label className="label">
+                          <span className="label-text">Short massage*</span>
+                      </label>
+                      <input
+                          type="text"
+                          placeholder="Leave a short note"
+                          {...register('massage', { required: true })}
+                          required
+                          className="input input-bordered w-full" />
+                  </div>
+                  <div>
+                  <div className="form-control w-full my-4">
+                      <label className="label">
+                          <span className="label-text">Location*</span>
+                      </label>
+                      <input
+                          type="text"
+                          placeholder="Location"
+                          {...register('location', { required: true })}
+                          required
+                          className="input input-bordered w-full" />
+                  </div>
+                  </div>
+                  </div>
+                  <div className="form-control">
+                      <label className="label">
+                          <span className="label-text">Description</span>
+                      </label>
+                      <textarea {...register('description')} className="textarea textarea-bordered h-24" placeholder="Write a long description"></textarea>
+                  </div>
+
+                  <div className="form-control w-full my-6">
+                      <input {...register('image', { required: true })} type="file" className="file-input w-full max-w-xs" />
+                  </div>
+
+                  <button className="btn text-lg flex mx-auto w-full bg-orange-500 text-white">
+                      Add Pet
+                  </button>
+              </form>
+          </div>
+          </div>
       </div>
-    </div>
-  )
-}
+      </div>
+  );
+};
 
 export default AddPet;
