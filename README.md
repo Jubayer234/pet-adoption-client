@@ -9,9 +9,14 @@ Currently, two official plugins are available:
 - ## Website Name And Logo
 - Name : Pet Adoption
 - Live Link : https://pet-adoption-90f1a.web.app/
-## Features
-.Unique Project
-.Email and password Authentication
-.has private route
-.admin and client dashboard
-.Easy to use
+## Features Of my website
+
+    .Unique Project
+    .Email and password Authentication
+    .has private route
+    .admin and client dashboard
+    .Easy to use
+  
+  
+  
+ 
